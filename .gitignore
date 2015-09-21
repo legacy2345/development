@@ -12,3 +12,7 @@ Makefile.in
 /install-sh
 /missing
 /stamp-h1
+
+build
+config.aux
+legacy_config.h.in
