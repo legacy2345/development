@@ -74,5 +74,6 @@ AM_CONDITIONAL(BUILD_TESTS, [test "x$enable_tests" = "xyes"])
 
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([legacy/Makefile])
+AC_CONFIG_FILES([legacy/character/Makefile])
 AC_CONFIG_FILES([test/Makefile])
 AC_OUTPUT
