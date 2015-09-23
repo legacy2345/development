@@ -25,16 +25,25 @@
 
 
 Legacy::Sexuality Legacy::
-generate(Legacy::SexualityConfig const& config,
+generate(Legacy::SexualityConfig const&,
          Legacy::RandomNumberGenerator& rng)
 {
   Legacy::Sexuality sexuality;
+  std::bernoulli_distribution sex_chooser(0.49);
+  std::exponential_distribution<> bias_chooser(0.5);
+
+  sexuality.sex_ = (sex_chooser(rng) ? Sexuality::Physically::male
+                                     : Sexuality::Physically::female);
+  sexuality.gender_ = std::min(bias_chooser(rng), 1.0);
+  sexuality.same_sex_pref_ = 1.0 - std::min(bias_chooser(rng), 1.0);
+  sexuality.opposite_sex_pref_ = std::min(bias_chooser(rng), 1.0);
+
   return sexuality;
 }
 
 
 std::istream& Legacy::
-operator>>(std::istream& istr, Legacy::Sexuality& sexuality)
+operator>>(std::istream& istr, Legacy::Sexuality&)
 {
   return istr;
 }
