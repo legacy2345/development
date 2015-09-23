@@ -26,9 +26,53 @@ AC_INIT([Legacy 2345],
         [legacy2345],
         [http://legacy2345.github.io/development/]])
 AC_CONFIG_AUX_DIR([config.aux])
+AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([1.11 gnu -Wall color-tests])
 AM_SILENT_RULES([yes])
 AC_CONFIG_HEADER([legacy_config.h])
 
+# Checks for required tools
+AC_PROG_CXX
+AC_LANG([C++])
+LT_PREREQ([2.4.2])
+LT_INIT
+
+# Check compiler support
+legacy_save_cxxflags="$CXXFLAGS"
+CXXFLAGS="$CXXFLAGS -fvisibility=hidden"
+AC_CACHE_CHECK([if ]$CXX[ supports -fvisibility-hidden],
+               [legacy_cv_cxx_flag_visibility_hidden],
+               AC_COMPILE_IFELSE([AC_LANG_SOURCE([int i;])],
+                                 [legacy_cv_cxx_flag_visibility_hidden=yes],
+                                 [legacy_cv_cxx_flag_visibility_hidden=no]))
+if test x$legacy_cv_cxx_flag_visibility_hidden = xyes; then
+  AM_CXXFLAGS="-fvisibility=hidden $AM_CXXFLAGS"
+fi
+CXXFLAGS="$legacy_save_cxxflags"
+AC_CACHE_CHECK([if ]$CXX[ supports -std=c++11],
+               [legacy_cv_cxx_std_cxx11],
+               AC_COMPILE_IFELSE([AC_LANG_SOURCE([int i;])],
+                                 [legacy_cv_cxx_std_cxx11=yes],
+                                 [AC_MSG_FAILURE([C++11 support is required])]))
+if test x$legacy_cv_cxx_std_cxx11 = xyes; then
+  AM_CXXFLAGS="-std=c++11 $AM_CXXFLAGS"
+fi
+CXXFLAGS="$legacy_save_cxxflags"
+
+AC_DEFINE([LEGACY_UNUSED],[__attribute__((unused))],[symbol is unused])
+AC_SUBST(AM_CXXFLAGS, "-Wall -Wextra -pedantic $AM_CXXFLAGS")
+
+# Check for optional bits
+AC_ARG_ENABLE([tests],
+              [AC_HELP_STRING([--enable-tests=@<:@no/yes@:>@],
+                              [Enable unit tests @<:@default=yes@:>@])],
+              [],
+              [enable_tests=yes])
+AS_IF([test "x$enable_tests" = "xyes"],[CHECK_GTEST])
+AM_CONDITIONAL(BUILD_TESTS, [test "x$enable_tests" = "xyes"])
+
+
 AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([legacy/Makefile])
+AC_CONFIG_FILES([test/Makefile])
 AC_OUTPUT
