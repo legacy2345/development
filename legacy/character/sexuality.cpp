@@ -24,20 +24,30 @@
 #include <legacy/random.h>
 
 
-Legacy::Sexuality Legacy::
+Legacy::Sexuality::
+Sexuality(Physically sex,
+          double     gender,
+          double     same_sex_pref,
+          double     opposite_sex_pref)
+: sex_(sex)
+, gender_(gender)
+, same_sex_pref_(same_sex_pref)
+, opposite_sex_pref_(opposite_sex_pref)
+{ }
+
+
+Legacy::Sexuality Legacy::Sexuality::
 generate(Legacy::SexualityConfig const&,
          Legacy::RandomNumberGenerator& rng)
 {
-  Legacy::Sexuality sexuality;
   std::bernoulli_distribution sex_chooser(0.49);
   std::exponential_distribution<> bias_chooser(0.5);
 
-  sexuality.sex_ = (sex_chooser(rng) ? Sexuality::Physically::male
-                                     : Sexuality::Physically::female);
-  sexuality.gender_ = std::min(bias_chooser(rng), 1.0);
-  sexuality.same_sex_pref_ = 1.0 - std::min(bias_chooser(rng), 1.0);
-  sexuality.opposite_sex_pref_ = std::min(bias_chooser(rng), 1.0);
-
+  Legacy::Sexuality sexuality(sex_chooser(rng) ? Sexuality::Physically::male
+                                               : Sexuality::Physically::female,
+                              std::min(bias_chooser(rng), 1.0),
+                              1.0 - std::min(bias_chooser(rng), 1.0),
+                              std::min(bias_chooser(rng), 1.0));
   return sexuality;
 }
 

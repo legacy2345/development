@@ -60,7 +60,7 @@ public:
   /**
    * Randomly generates the sexual characteristics.
    */
-  friend Sexuality
+  static Sexuality
   generate(SexualityConfig const& config, RandomNumberGenerator& rng);
 
   friend std::istream&
@@ -70,7 +70,10 @@ public:
   operator<<(std::ostream& ostr, Sexuality const& sex);
 
 private:
-  Sexuality();
+  Sexuality(Physically sex,
+            double     gender,
+            double     same_sex_pref,
+            double     opposite_sex_pref);
 
 private:
   Physically sex_;
