@@ -53,8 +53,15 @@ generate(Legacy::SexualityConfig const&,
 
 
 std::istream& Legacy::
-operator>>(std::istream& istr, Legacy::Sexuality&)
+operator>>(std::istream& istr, Legacy::Sexuality& sexuality)
 {
+  char c;
+  istr >> c;
+  sexuality.sex_ = (c == 'M' ? Sexuality::Physically::male
+                             : Sexuality::Physically::female);
+  istr >> sexuality.gender_;
+  istr >> sexuality.same_sex_pref_;
+  istr >> sexuality.opposite_sex_pref_;
   return istr;
 }
 
@@ -62,11 +69,10 @@ operator>>(std::istream& istr, Legacy::Sexuality&)
 std::ostream& Legacy::
 operator<<(std::ostream& ostr, Legacy::Sexuality const& sexuality)
 {
-  ostr << "sexuality["
-       << (sexuality.sex() == Sexuality::Physically::male ? 'M' : 'F') << " "
+  ostr << (sexuality.sex() == Sexuality::Physically::male ? 'M' : 'F') << " "
        << sexuality.gender() << " "
        << sexuality.same_sex_preference() << " "
-       << sexuality.opposite_sex_preference() << "]";
+       << sexuality.opposite_sex_preference();
   return ostr;
 }
 
