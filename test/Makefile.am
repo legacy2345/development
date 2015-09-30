@@ -35,12 +35,14 @@ libgmock_a_CPPFLAGS = \
 
 gtest_liblegacy2345_SOURCES = \
   main.cpp \
+  test_config.cpp \
   test_random.cpp \
   test_sexuality.cpp
 
 gtest_liblegacy2345_CPPFLAGS = \
   -I$(top_srcdir) \
   -I$(top_builddir) \
+  -DTOP_DATADIR=\"${abs_top_srcdir}/data\" \
   $(GMOCK_CPPFLAGS) \
   $(GTEST_CPPFLAGS)
 

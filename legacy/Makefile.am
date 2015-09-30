@@ -24,6 +24,7 @@ lib_LTLIBRARIES = liblegacy2345.la
 
 liblegacy2345_la_SOURCES = \
   liblegacy2345.h \
+  config.h config.cpp \
   random.h random.cpp
 
 liblegacy2345_la_CPPFLAGS = \
