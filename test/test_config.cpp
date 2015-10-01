@@ -77,7 +77,7 @@ TEST(Config, FindDataFileByOptions)
  */
 TEST(Config, FindDataFileByEnvironment)
 {
-  putenv("LEGACY_DATAPATH=" TOP_DATADIR);
+  ::putenv(const_cast<char*>("LEGACY_DATAPATH=" TOP_DATADIR));
   Legacy::Config config(0, nullptr);
 
   ASSERT_EQ(config.find_data_file("names/dist.all.last"),
