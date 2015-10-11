@@ -81,7 +81,7 @@ Config::
 
 
 std::string Config::
-find_data_file(std::string const& basename)
+find_data_file(std::string const& basename) const
 {
   for (auto const& path: data_paths_)
   {

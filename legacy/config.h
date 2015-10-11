@@ -62,7 +62,7 @@ public:
    * if no matching files were found.
    */
   std::string
-  find_data_file(std::string const& basename);
+  find_data_file(std::string const& basename) const;
 
 private:
   PathList data_paths_;

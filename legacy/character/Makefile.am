@@ -26,4 +26,5 @@ libcharacter_la_CPPFLAGS = \
   -DLIBLEGACY2345_BUILDING_DSO=1
 
 libcharacter_la_SOURCES = \
-  sexualityconfig.h sexuality.h sexuality.cpp
+  sexualityconfig.h sexuality.h sexuality.cpp \
+  namegenerator.h namegenerator.cpp
