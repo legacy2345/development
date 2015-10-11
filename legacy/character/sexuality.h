@@ -39,15 +39,19 @@ class LIBLEGACY2345_API Sexuality
 {
 public:
   enum class Physically { male, female };
+  enum class Gender { masculine, feminine };
 
 public:
   Physically
   sex() const
   { return sex_; }
 
+  Gender
+  gender() const;
+
   double
-  gender() const
-  { return gender_; }
+  gender_bias() const
+  { return gender_bias_; }
 
   double
   same_sex_preference() const
@@ -71,13 +75,13 @@ public:
 
 private:
   Sexuality(Physically sex,
-            double     gender,
+            double     gender_bias,
             double     same_sex_pref,
             double     opposite_sex_pref);
 
 private:
   Physically sex_;
-  double     gender_;
+  double     gender_bias_;
   double     same_sex_pref_;
   double     opposite_sex_pref_;
 };

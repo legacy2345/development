@@ -31,7 +31,7 @@
 TEST(Sexuality, Factory)
 {
   Legacy::RandomNumberGenerator rng;
-  Legacy::Sexuality sexuality = Legacy::Sexuality::generate(Legacy::SexualityConfig(), rng);
+  Legacy::Sexuality sexuality [[gnu::unused]] = Legacy::Sexuality::generate(Legacy::SexualityConfig(), rng);
 }
 
 
@@ -50,7 +50,8 @@ TEST(Sexuality, UnmarshallsIdentically)
   sstr >> s2;
 
   EXPECT_EQ(s1.sex(), s2.sex());
-  EXPECT_NEAR(s1.gender(), s2.gender(), 0.00001);
+  EXPECT_EQ(s1.gender(), s2.gender());
+  EXPECT_NEAR(s1.gender_bias(), s2.gender_bias(), 0.00001);
   EXPECT_NEAR(s1.same_sex_preference(), s2.same_sex_preference(), 0.00001);
   EXPECT_NEAR(s1.opposite_sex_preference(), s2.opposite_sex_preference(), 0.00001);
 }

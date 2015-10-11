@@ -26,14 +26,25 @@
 
 Legacy::Sexuality::
 Sexuality(Physically sex,
-          double     gender,
+          double     gender_bias,
           double     same_sex_pref,
           double     opposite_sex_pref)
 : sex_(sex)
-, gender_(gender)
+, gender_bias_(gender_bias)
 , same_sex_pref_(same_sex_pref)
 , opposite_sex_pref_(opposite_sex_pref)
 { }
+
+
+Legacy::Sexuality::Gender Legacy::Sexuality::
+gender() const
+{
+  if (gender_bias_ > 0.90)
+  {
+    return (sex_ == Physically::male ? Gender::feminine : Gender::masculine);
+  }
+  return (sex_ == Physically::male ? Gender::masculine : Gender::feminine);
+}
 
 
 Legacy::Sexuality Legacy::Sexuality::
@@ -59,7 +70,7 @@ operator>>(std::istream& istr, Legacy::Sexuality& sexuality)
   istr >> c;
   sexuality.sex_ = (c == 'M' ? Sexuality::Physically::male
                              : Sexuality::Physically::female);
-  istr >> sexuality.gender_;
+  istr >> sexuality.gender_bias_;
   istr >> sexuality.same_sex_pref_;
   istr >> sexuality.opposite_sex_pref_;
   return istr;
@@ -70,7 +81,7 @@ std::ostream& Legacy::
 operator<<(std::ostream& ostr, Legacy::Sexuality const& sexuality)
 {
   ostr << (sexuality.sex() == Sexuality::Physically::male ? 'M' : 'F') << " "
-       << sexuality.gender() << " "
+       << sexuality.gender_bias() << " "
        << sexuality.same_sex_preference() << " "
        << sexuality.opposite_sex_preference();
   return ostr;
