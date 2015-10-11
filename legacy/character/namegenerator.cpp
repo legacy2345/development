@@ -82,7 +82,7 @@ public:
     }
 
   std::string
-  pick_name(Legacy::RandomNumberGenerator& rng)
+  pick_name(Legacy::RandomNumberGenerator& rng) override
   {
     return names_[name_distribution_(rng)];
   }

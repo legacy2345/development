@@ -54,7 +54,7 @@ public:
 
   /** Returns a generated name. */
   virtual std::string
-  pick_name(RandomNumberGenerator& rng);
+  pick_name(RandomNumberGenerator& rng) = 0;
 
   /** Factory function to create a name generator. */
   static Ptr
