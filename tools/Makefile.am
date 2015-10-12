@@ -1,8 +1,8 @@
 #
-# @file Makefile.am
-# @brief top-level automake recipe for the Legacy project
+# @file tools/Makefile.am
+# @brief automake recipe for Legacy 2345 tools
 #
-# Copyright 2011,2015 Stephen M. Webb  <stephen.webb@bregmasoft.ca>
+# Copyright 2015 Stephen M. Webb  <stephen.webb@bregmasoft.ca>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,14 +18,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-AM_MAKEFLAGS = --no-print-directory
+bin_PROGRAMS = test_name_generation
 
-SUBDIRS = legacy test tools
+test_name_generation_SOURCES = \
+  test_name_generation.cpp
 
-EXTRA_DIST = \
-	AUTHORS \
-	COPYING \
-	INSTALL \
-	NEWS \
-	README
+test_name_generation_CPPFLAGS = \
+  -I$(top_srcdir) \
+  -I$(top_builddir)
+
+test_name_generation_LDADD = \
+  $(top_builddir)/legacy/liblegacy2345.la
 

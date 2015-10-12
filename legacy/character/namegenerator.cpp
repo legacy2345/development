@@ -134,7 +134,7 @@ create(Legacy::Config const&           config,
   {
     case NameType::SURNAME:
     {
-      std::string file_name = config.find_data_file("dist.all.last");
+      std::string file_name = config.find_data_file("names/dist.all.last");
       if (file_name.length() > 0)
         generator = create_from_file(file_name);
       break;
@@ -143,8 +143,8 @@ create(Legacy::Config const&           config,
     case NameType::GIVEN:
     {
       std::string source_file_name = (gender == Sexuality::Gender::masculine
-                                      ? "dist.male.first"
-                                      : "dist.female.first");
+                                      ? "names/dist.male.first"
+                                      : "names/dist.female.first");
       std::string file_name = config.find_data_file(source_file_name);
       if (file_name.length() > 0)
         generator = create_from_file(file_name);
@@ -154,8 +154,8 @@ create(Legacy::Config const&           config,
     case NameType::MIDDLE:
     {
       std::string source_file_name = (gender == Sexuality::Gender::masculine
-                                      ? "dist.male.first"
-                                      : "dist.female.first");
+                                      ? "names/dist.male.first"
+                                      : "names/dist.female.first");
       std::string file_name = config.find_data_file(source_file_name);
       if (file_name.length() > 0)
         generator = create_from_file(file_name);
