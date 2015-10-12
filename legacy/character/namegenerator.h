@@ -23,6 +23,7 @@
 
 #include "legacy/liblegacy2345.h"
 
+#include "legacy/character/sexuality.h"
 #include <memory>
 #include <string>
 #include <vector>
@@ -58,7 +59,7 @@ public:
 
   /** Factory function to create a name generator. */
   static Ptr
-  create(Config const& config, NameType type);
+  create(Config const& config, NameType type, Sexuality::Gender gender);
 };
 
 } // namespace Legacy

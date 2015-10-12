@@ -126,7 +126,8 @@ create_from_file(std::string const& file_name)
 
 Legacy::NameGenerator::Ptr Legacy::NameGenerator::
 create(Legacy::Config const&           config,
-       Legacy::NameGenerator::NameType type)
+       Legacy::NameGenerator::NameType type,
+       Legacy::Sexuality::Gender       gender)
 {
   Ptr generator;
   switch (type)
@@ -141,7 +142,10 @@ create(Legacy::Config const&           config,
 
     case NameType::GIVEN:
     {
-      std::string file_name = config.find_data_file("dist.male.first");
+      std::string source_file_name = (gender == Sexuality::Gender::masculine
+                                      ? "dist.male.first"
+                                      : "dist.female.first");
+      std::string file_name = config.find_data_file(source_file_name);
       if (file_name.length() > 0)
         generator = create_from_file(file_name);
       break;
@@ -149,7 +153,10 @@ create(Legacy::Config const&           config,
 
     case NameType::MIDDLE:
     {
-      std::string file_name = config.find_data_file("dist.male.first");
+      std::string source_file_name = (gender == Sexuality::Gender::masculine
+                                      ? "dist.male.first"
+                                      : "dist.female.first");
+      std::string file_name = config.find_data_file(source_file_name);
       if (file_name.length() > 0)
         generator = create_from_file(file_name);
       break;
