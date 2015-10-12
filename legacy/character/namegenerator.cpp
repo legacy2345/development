@@ -54,7 +54,7 @@ class StatisticalFileNameGenerator
 {
 private:
   using NameStrings = std::vector<std::string>;
-  using NaWeights = std::vector<double>;
+  using NameWeights = std::vector<double>;
   using NameDistribution = std::discrete_distribution<NameStrings::size_type>;
 
 public:
@@ -63,8 +63,7 @@ public:
     {
       static_assert(std::is_base_of<std::string, typename It::value_type>::value, "invalid");
 
-      std::vector<double> weights;
-      std::string line;
+      NameWeights weights;
       std::for_each(begin, end, [&](std::string const& s)
       {
         std::istringstream istr(s);
